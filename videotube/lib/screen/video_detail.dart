@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:videotube/model/api_handler.dart';
 
 class VideoDetail extends StatefulWidget {
   final int id;
@@ -11,6 +12,8 @@ class VideoDetail extends StatefulWidget {
 
 class _VideoDetailState extends State<VideoDetail> {
   final int id;
+
+  APIHandler apiHandler = APIHandler();
 
   _VideoDetailState({required this.id});
 
@@ -29,7 +32,7 @@ class _VideoDetailState extends State<VideoDetail> {
       child: Column(
         children: <Widget>[
           Text(
-            "hello ${id}",
+            apiHandler.getVideos[id].description,
             style: const TextStyle(color: Colors.white),
           ),
           ElevatedButton(

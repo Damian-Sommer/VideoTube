@@ -1,4 +1,4 @@
-# videotube
+# VideoTube
 
 A new Flutter project.
 

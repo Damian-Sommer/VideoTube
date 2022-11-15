@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:videotube/screen/home_page.dart';
 
-import 'screen/home_page.dart';
+import 'util/video_list.dart';
 import 'model/page.dart';
-import 'container_widget.dart';
+import 'page_container.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,36 +23,36 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFF02040A),
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MainPage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MainPageState extends State<MainPage> {
 
 
   List<PageModel> pageList = <PageModel>[];
 
   static List screens = [const HomePage(), const HomePage(), const HomePage()];
-  late ContainerWidget containerWidget;
+  late PageContainer containerWidget;
 
-  _MyHomePageState() {
+  _MainPageState() {
     pageList
         .add(PageModel(id: 0, name: "Home", icon: const ImageIcon(AssetImage("assets/icons/home.png")), color: const Color(0xffDFDDDD)));
     pageList
         .add(PageModel(id: 1, name: "Search", icon: const ImageIcon(AssetImage("assets/icons/search.png")), color: const Color(0xffDFDDDD)));
     pageList
         .add(PageModel(id: 2, name: "Settings", icon: const ImageIcon(AssetImage("assets/icons/search.png")), color: const Color(0xffDFDDDD)));
-    containerWidget = ContainerWidget(pages: pageList, screens: screens);
+    containerWidget = PageContainer(pages: pageList, screens: screens);
   }
 
   @override

@@ -3,28 +3,28 @@ import 'package:flutter/material.dart';
 
 import 'model/page.dart';
 
-class ContainerWidget extends StatefulWidget {
+class PageContainer extends StatefulWidget {
   List<PageModel> pages = <PageModel>[];
   var screens = [];
 
-  ContainerWidget({
+  PageContainer({
     Key? key,
     required this.pages,
     required this.screens,
   }) : super(key: key);
 
   @override
-  _ContainerWidgetState createState() =>
+  _PageContainerState createState() =>
       // ignore: no_logic_in_create_state
-      _ContainerWidgetState(pages, screens);
+      _PageContainerState(pages, screens);
 }
 
-class _ContainerWidgetState extends State<ContainerWidget> {
+class _PageContainerState extends State<PageContainer> {
   List<PageModel> pages = <PageModel>[];
   var screens = [];
   int currentIndex = 0;
 
-  _ContainerWidgetState(this.pages, this.screens);
+  _PageContainerState(this.pages, this.screens);
 
   String getCurrentPageName() {
     return pages[currentIndex].getPageName.toString();

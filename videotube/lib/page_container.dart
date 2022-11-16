@@ -32,7 +32,6 @@ class _PageContainerState extends State<PageContainer> {
 
   List<BottomNavigationBarItem> getListOfNavigationBarItems() {
     List<BottomNavigationBarItem> items = [];
-
     for (int i = 0; i < pages.length; i++) {
       items.add(BottomNavigationBarItem(
           icon: pages[i].getPageIcon, label: pages[i].getPageName));
@@ -98,8 +97,10 @@ class AppBarContent extends StatelessWidget {
               ),
               Text(
                 ' ViTu',
-                style: TextStyle(color: Colors.white, fontSize: 30,
-                fontWeight: FontWeight.w600),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600),
               ),
             ],
           ),

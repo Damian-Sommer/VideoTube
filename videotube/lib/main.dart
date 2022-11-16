@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:videotube/screen/home_page.dart';
 
+import 'model/api_handler.dart';
+import 'model/channel.dart';
 import 'model/page.dart';
 import 'page_container.dart';
 
@@ -37,20 +39,51 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  static List screens = [];
 
+  @override
+  void initState() {
+    super.initState();
+    APIHandler apiHandler = APIHandler.instance;
+    apiHandler
+        .fetchChannel(channelId: "UCykDwCvT2mj6R6w8Y5uPd5Q")
+        .then((value) => setScreens(value));
+  }
 
   List<PageModel> pageList = <PageModel>[];
 
-  static List screens = [const HomePage(), const HomePage(), const HomePage()];
+  void setScreens(Channel c) {
+    setState(() {
+      screens = [
+        HomePage(channel: c),
+        HomePage(
+          channel: c,
+        ),
+        HomePage(
+          channel: c,
+        )
+      ];
+    });
+  }
+
   late PageContainer containerWidget;
 
   _MainPageState() {
-    pageList
-        .add(PageModel(id: 0, name: "Home", icon: const ImageIcon(AssetImage("assets/icons/home.png")), color: const Color(0xffDFDDDD)));
-    pageList
-        .add(PageModel(id: 1, name: "Search", icon: const ImageIcon(AssetImage("assets/icons/search.png")), color: const Color(0xffDFDDDD)));
-    pageList
-        .add(PageModel(id: 2, name: "Settings", icon: const ImageIcon(AssetImage("assets/icons/search.png")), color: const Color(0xffDFDDDD)));
+    pageList.add(PageModel(
+        id: 0,
+        name: "Home",
+        icon: const ImageIcon(AssetImage("assets/icons/home.png")),
+        color: const Color(0xffDFDDDD)));
+    pageList.add(PageModel(
+        id: 1,
+        name: "Search",
+        icon: const ImageIcon(AssetImage("assets/icons/search.png")),
+        color: const Color(0xffDFDDDD)));
+    pageList.add(PageModel(
+        id: 2,
+        name: "Settings",
+        icon: const ImageIcon(AssetImage("assets/icons/search.png")),
+        color: const Color(0xffDFDDDD)));
     containerWidget = PageContainer(pages: pageList, screens: screens);
   }
 

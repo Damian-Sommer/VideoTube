@@ -13,7 +13,7 @@ class VideoDetail extends StatefulWidget {
 class _VideoDetailState extends State<VideoDetail> {
   final int id;
 
-  APIHandler apiHandler = APIHandler();
+  APIHandler apiHandler = APIHandler.instance;
 
   _VideoDetailState({required this.id});
 
@@ -23,16 +23,16 @@ class _VideoDetailState extends State<VideoDetail> {
       appBar: AppBar(
         title: const Text("Video"),
       ),
-      body: getVideoDetails(),
+      body: getVideoDetails("hallo"),
     );
   }
 
-  Widget getVideoDetails() {
+  Widget getVideoDetails(String title) {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           Text(
-            apiHandler.getVideos[id].description,
+            title,
             style: const TextStyle(color: Colors.white),
           ),
           ElevatedButton(

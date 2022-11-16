@@ -46,8 +46,7 @@ class _PageContainerState extends State<PageContainer> {
         preferredSize: const Size.fromHeight(45.0),
         child: AppBarContent(),
       ),
-      /*AppBar(
-        title: Text("he"),
+      /*
         //https://api.flutter.dev/flutter/widgets/PreferredSize-class.html#:~:text=A%20widget%20with%20a%20preferred,their%20children%20implement%20that%20interface.
       )*/
       body: screens[currentIndex],

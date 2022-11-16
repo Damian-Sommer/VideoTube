@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:videotube/screen/home_page.dart';
+import 'package:videotube/screen/loading_page.dart';
 
 import 'model/api_handler.dart';
 import 'model/channel.dart';
@@ -39,36 +40,17 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  static List screens = [];
-
-  @override
-  void initState() {
-    super.initState();
-    APIHandler apiHandler = APIHandler.instance;
-    apiHandler
-        .fetchChannel(channelId: "UCykDwCvT2mj6R6w8Y5uPd5Q")
-        .then((value) => setScreens(value));
-  }
-
+  late PageContainer containerWidget;
+  static List screens = [
+    HomePage(),
+    HomePage(),
+    HomePage(),
+  ];
   List<PageModel> pageList = <PageModel>[];
 
-  void setScreens(Channel c) {
-    setState(() {
-      screens = [
-        HomePage(channel: c),
-        HomePage(
-          channel: c,
-        ),
-        HomePage(
-          channel: c,
-        )
-      ];
-    });
-  }
-
-  late PageContainer containerWidget;
 
   _MainPageState() {
+    //setScreens();
     pageList.add(PageModel(
         id: 0,
         name: "Home",

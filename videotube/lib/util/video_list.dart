@@ -62,7 +62,7 @@ class _HomePageState extends State<VideoList> {
         ),
         child: Column(
           children: <Widget>[
-            getListTileHeadWidget(video.channelTitle),
+            getListTileHeadWidget(video.channelTitle, video.thumbnailUrl),
             getListTileBottomWidget(video.title,true, 1000),
           ],
         ),
@@ -70,14 +70,13 @@ class _HomePageState extends State<VideoList> {
     );
   }
 
-  Widget getListTileHeadWidget(String channelTitle) {
+  Widget getListTileHeadWidget(String channelTitle, String videoThumbnail) {
     return Container(
       height: 200,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
+        color: Colors.pink,
         image: DecorationImage(
-          image: AssetImage(
-            'assets/img/thumbnail.png',
-          ),
+          image: NetworkImage(videoThumbnail),
           fit: BoxFit.fitWidth,
         ),
       ),

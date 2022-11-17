@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Channel channel;
+  late Channel channel = Channel(id: '1', title: 'default', profilePictureUrl: 'd', subscriberCount: '10', videoCount: '10', uploadPlaylistId: '100000', videos: []);
 
   @override
   void initState() {
@@ -24,16 +24,13 @@ class _HomePageState extends State<HomePage> {
     Channel channel =
         await apiHandler.fetchChannel(channelId: "UCykDwCvT2mj6R6w8Y5uPd5Q");
     setState(() {
+      print(channel.profilePictureUrl);
       this.channel = channel;
     });
   }
 
-  /*
-  void setChannel()async{
-    channel = await _initChannel();
-  }*/
   @override
   Widget build(BuildContext context) {
-    return VideoList(channel: channel);
+    return  VideoList(channel: channel) ;
   }
 }

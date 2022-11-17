@@ -9,17 +9,20 @@ class VideoList extends StatefulWidget {
   const VideoList({Key? key, required this.channel}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState(channel: channel);
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<VideoList> {
-  final Channel channel;
   bool _isLoading = false;
-  _HomePageState({required this.channel});
   APIHandler apiHandler = APIHandler.instance;
   static List videos = <Video>[];
   int count = 0;
-
+@override
+  void setState(VoidCallback fn) {
+    super.setState(fn);
+    videos = widget.channel.videos;
+    count = int.parse(widget.channel.videoCount);
+  }
   @override
   Widget build(BuildContext context) {
     //updateVideoListView();
@@ -42,7 +45,7 @@ class _HomePageState extends State<VideoList> {
       shrinkWrap: true,
       itemCount: count,
       itemBuilder: (BuildContext context, int index) {
-        Video video = channel.videos[index];
+        Video video = widget.channel.videos[index];
         return _buildVideo(video);
       },
     );
@@ -107,10 +110,10 @@ class _HomePageState extends State<VideoList> {
   _loadMoreVideos() async {
     _isLoading = true;
     List<Video> moreVideos = await APIHandler.instance
-        .fetchVideosFromPlaylist(playlistId: channel.uploadPlaylistId);
-    List<Video> allVideos = channel.videos..addAll(moreVideos);
+        .fetchVideosFromPlaylist(playlistId: widget.channel.uploadPlaylistId);
+    List<Video> allVideos = widget.channel.videos..addAll(moreVideos);
     setState(() {
-      channel.videos = allVideos;
+      widget.channel.videos = allVideos;
     });
     _isLoading = false;
   }

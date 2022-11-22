@@ -64,7 +64,7 @@ class _HomePageState extends State<VideoList> {
             child: Column(
               children: <Widget>[
                 getListTileHeadWidget(video.channelTitle, video.thumbnailUrl),
-                getListTileBottomWidget(video.title, true, 1000),
+                getVideoFooter(video.title, true, 1000, video.thumbnailUrl),
               ],
             ),
           ),
@@ -90,24 +90,43 @@ class _HomePageState extends State<VideoList> {
         ));
   }
 
-  Widget getListTileBottomWidget(String description, bool isLiked, int rating) {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
-        color: Color(0xFF11141C),
-      ),
-      constraints: const BoxConstraints(
-        minHeight: 50,
-      ),
-      child: Row(
-        children: <Widget>[
-          getVideoTitleWidget(description),
-          getLikesWidget(rating),
-          getLikeWidget(isliked: true),
-        ],
-      ),
+  Widget getVideoFooter(
+      String description, bool isLiked, int rating, String thumbnailUrl) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20)),
+              child: ImageFiltered(
+                imageFilter: ImageFilter.blur(sigmaY: 20, sigmaX: 20),
+                child: Image.network(
+                  thumbnailUrl,
+                  fit: BoxFit.fill,
+                ),
+              )),
+        ),
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20)),
+            color: Color(0xB3000000),
+          ),
+          constraints: const BoxConstraints(
+            minHeight: 50,
+          ),
+          child: Row(
+            children: <Widget>[
+              getVideoTitleWidget(description),
+              getLikesWidget(rating),
+              getLikeWidget(isliked: true),
+            ],
+          ),
+        )
+      ],
     );
   }
 

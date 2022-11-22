@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:videotube/model/api_handler.dart';
 
@@ -6,7 +8,8 @@ import '../model/video.dart';
 
 class VideoList extends StatefulWidget {
   final Channel channel;
-  const VideoList({Key? key, required this.channel}) : super(key: key);
+
+  VideoList({Key? key, required this.channel}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -16,16 +19,9 @@ class _HomePageState extends State<VideoList> {
   bool _isLoading = false;
   APIHandler apiHandler = APIHandler.instance;
   static List videos = <Video>[];
-  int count = 0;
-@override
-  void setState(VoidCallback fn) {
-    super.setState(fn);
-    videos = widget.channel.videos;
-    count = int.parse(widget.channel.videoCount);
-  }
+
   @override
   Widget build(BuildContext context) {
-    //updateVideoListView();
     return videoList();
   }
 
@@ -43,7 +39,7 @@ class _HomePageState extends State<VideoList> {
     return ListView.builder(
       physics: const ScrollPhysics(),
       shrinkWrap: true,
-      itemCount: count,
+      itemCount: widget.channel.videos.length,
       itemBuilder: (BuildContext context, int index) {
         Video video = widget.channel.videos[index];
         return _buildVideo(video);
@@ -61,12 +57,12 @@ class _HomePageState extends State<VideoList> {
         margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: const Color(0xFF11141C),
+          color: const Color(0xFFFFFFFF),
         ),
         child: Column(
           children: <Widget>[
             getListTileHeadWidget(video.channelTitle, video.thumbnailUrl),
-            getListTileBottomWidget(video.title,true, 1000),
+            getListTileBottomWidget(video.title, true, 1000),
           ],
         ),
       ),
@@ -75,15 +71,15 @@ class _HomePageState extends State<VideoList> {
 
   Widget getListTileHeadWidget(String channelTitle, String videoThumbnail) {
     return Container(
-      height: 200,
+      height: 300,
       decoration: BoxDecoration(
         color: Colors.pink,
         image: DecorationImage(
           image: NetworkImage(videoThumbnail),
-          fit: BoxFit.fitWidth,
+          fit: BoxFit.fitHeight,
         ),
       ),
-      child: getAuthorDescriptionWidget(channelTitle),
+      child: getAuthorPill(channelTitle),
     );
   }
 
@@ -100,13 +96,14 @@ class _HomePageState extends State<VideoList> {
       ),
       child: Row(
         children: <Widget>[
-          getDescriptionWidget(description),
+          getVideoTitleWidget(description),
           getLikesWidget(rating),
           getLikeWidget(isliked: true),
         ],
       ),
     );
   }
+
   _loadMoreVideos() async {
     _isLoading = true;
     List<Video> moreVideos = await APIHandler.instance
@@ -118,26 +115,13 @@ class _HomePageState extends State<VideoList> {
     _isLoading = false;
   }
 
-
-/*
-  void handleLike(String index) {
-    apiHandler.update(index);
-    updateVideoListView();
-  }
-*//*
-  void updateVideoListView() {
-    setState(() {
-      videos = apiHandler.getVideos;
-      count = apiHandler.getVideos.length;
-    });
-  }*/
-
   Color getColor(bool isLiked) {
     if (isLiked) {
       return const Color(0xff11ad11);
     }
     return const Color(0xffDFDDDD);
   }
+
 /*
   void navigateSecondPage(String videoId) async {
     await Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -145,43 +129,58 @@ class _HomePageState extends State<VideoList> {
     }));
   }*/
 
-  Widget getAuthorDescriptionWidget(String channelTitle) {
-    Channel channel = APIHandler.instance.fetchChannelByUsername(channelTitle: channelTitle) as Channel;
+  Widget getAuthorPill(String channelTitle) {
     return Align(
       alignment: Alignment.topLeft,
       child: IntrinsicWidth(
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xB3333333),
-            borderRadius: BorderRadius.circular(40),
-          ),
-          padding: const EdgeInsets.all(4),
-          margin: const EdgeInsets.all(4),
-          constraints: const BoxConstraints(maxWidth: 200),
-          child: Row(
-            children: [
-              Image(
-                height: 50,
-                width: 50,
-                image: NetworkImage(channel.profilePictureUrl),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 3),
-                child: Text(
-                  channelTitle,
-                  style: const TextStyle(
-                    color: Color(0xffDFDDDD),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(40),
+              child: BackdropFilter(
+                child: Container(
+                  height: 58,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: const Color(0xB3333333),
+                  ),
+                  padding: const EdgeInsets.all(4),
+                  constraints: const BoxConstraints(maxWidth: 200),
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                        child: Image(
+                          height: 50,
+                          width: 50,
+                          image: NetworkImage(widget.channel.profilePictureUrl),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 3),
+                        child: Text(
+                          channelTitle,
+                          style: const TextStyle(
+                            color: Color(0xffDFDDDD),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+                filter: ImageFilter.blur(
+                  sigmaX: 5.0,
+                  sigmaY: 5.0,
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget getDescriptionWidget(String description) {
+  Widget getVideoTitleWidget(String description) {
     return Expanded(
       flex: 8,
       child: Text(
@@ -217,7 +216,7 @@ class _HomePageState extends State<VideoList> {
           padding: EdgeInsets.only(bottom: 8.0),
           child: ImageIcon(
             AssetImage("assets/icons/like.png"),
-            color: Color(0xFFFFFFFF),//getColor(isLiked),
+            color: Color(0xFFFFFFFF), //getColor(isLiked),
           ),
         ),
         onTap: () {

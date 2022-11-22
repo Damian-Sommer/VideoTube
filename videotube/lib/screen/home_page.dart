@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   late Channel channel = Channel(
       id: '1',
       title: 'default',
-      profilePictureUrl: 'd',
+      profilePictureUrl: '',
       subscriberCount: '10',
       videoCount: '10',
       uploadPlaylistId: '100000',

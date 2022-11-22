@@ -6,10 +6,8 @@ import 'package:http/http.dart' as http;
 
 import '../util/config.dart';
 import 'channel.dart';
+
 class APIHandler {
-
-
-
   APIHandler._instantiate();
 
   static final APIHandler instance = APIHandler._instantiate();
@@ -47,12 +45,13 @@ class APIHandler {
       throw json.decode(response.body)['error']['message'];
     }
   }
-  Future<Channel> fetchChannelByUsername({required String channelTitle})async{
+
+  Future<Channel> fetchChannelByUsername({required String channelTitle}) async {
     Map<String, String> parameters = {
       'forUsername': channelTitle,
       'key': API_KEY,
     };
-    Uri uri = Uri.https(_baseUrl, '/youtube/v3/channels',parameters);
+    Uri uri = Uri.https(_baseUrl, '/youtube/v3/channels', parameters);
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
     };
@@ -65,11 +64,13 @@ class APIHandler {
 
       Channel channel = Channel.fromMap(data);
       return channel;
-    }else {
+    } else {
       throw json.decode(response.body)['error']['message'];
     }
   }
-  Future<List<Video>> fetchVideosFromPlaylist({required String playlistId}) async {
+
+  Future<List<Video>> fetchVideosFromPlaylist(
+      {required String playlistId}) async {
     Map<String, String> parameters = {
       'part': 'snippet',
       'playlistId': playlistId,
@@ -97,7 +98,7 @@ class APIHandler {
       // Fetch first eight videos from uploads playlist
       List<Video> videos = [];
       videosJson.forEach(
-            (json) => videos.add(
+        (json) => videos.add(
           Video.fromMap(json['snippet']),
         ),
       );

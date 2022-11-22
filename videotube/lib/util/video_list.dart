@@ -48,39 +48,46 @@ class _HomePageState extends State<VideoList> {
   }
 
   _buildVideo(Video video) {
-    return InkWell(
-      onTap: () {
-        //navigateSecondPage(video.id);
-      },
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-        margin: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
+    return Container(
+        margin: EdgeInsets.only(top: 10),
+        child: InkWell(
+          onTap: () {
+            //navigateSecondPage(video.id);
+          },
           borderRadius: BorderRadius.circular(20),
-          color: const Color(0xFFFFFFFF),
-        ),
-        child: Column(
-          children: <Widget>[
-            getListTileHeadWidget(video.channelTitle, video.thumbnailUrl),
-            getListTileBottomWidget(video.title, true, 1000),
-          ],
-        ),
-      ),
-    );
+          child: Container(
+            margin: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: const Color(0xFFFFFFFF),
+            ),
+            child: Column(
+              children: <Widget>[
+                getListTileHeadWidget(video.channelTitle, video.thumbnailUrl),
+                getListTileBottomWidget(video.title, true, 1000),
+              ],
+            ),
+          ),
+        ));
   }
 
   Widget getListTileHeadWidget(String channelTitle, String videoThumbnail) {
-    return Container(
-      height: 300,
-      decoration: BoxDecoration(
-        color: Colors.pink,
-        image: DecorationImage(
-          image: NetworkImage(videoThumbnail),
-          fit: BoxFit.fitHeight,
-        ),
-      ),
-      child: getAuthorPill(channelTitle),
-    );
+    return AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Container(
+          height: 300,
+          padding: EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+            color: Colors.pink,
+            image: DecorationImage(
+              image: NetworkImage(videoThumbnail),
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+          child: getAuthorPill(channelTitle),
+        ));
   }
 
   Widget getListTileBottomWidget(String description, bool isLiked, int rating) {
@@ -149,7 +156,8 @@ class _HomePageState extends State<VideoList> {
                   child: Row(
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
                         child: Image(
                           height: 50,
                           width: 50,

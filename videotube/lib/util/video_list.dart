@@ -165,7 +165,7 @@ class _HomePageState extends State<VideoList> {
               borderRadius: BorderRadius.circular(40),
               child: BackdropFilter(
                 child: Container(
-                  height: 58,
+                  height: 48,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
                     color: const Color(0xB3333333),
@@ -178,8 +178,8 @@ class _HomePageState extends State<VideoList> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(25)),
                         child: Image(
-                          height: 50,
-                          width: 50,
+                          height: 40,
+                          width: 40,
                           image: NetworkImage(widget.channel.profilePictureUrl),
                         ),
                       ),

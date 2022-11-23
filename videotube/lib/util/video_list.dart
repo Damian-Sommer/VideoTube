@@ -183,12 +183,15 @@ class _HomePageState extends State<VideoList> {
                           image: NetworkImage(widget.channel.profilePictureUrl),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 3),
-                        child: Text(
-                          channelTitle,
-                          style: const TextStyle(
-                            color: Color(0xffDFDDDD),
+                      Flexible(
+                        child:
+                        Padding(
+                          padding: const EdgeInsets.only(left: 3),
+                          child: Text(
+                            channelTitle,
+                            style: const TextStyle(
+                              color: Color(0xffDFDDDD),
+                            ),
                           ),
                         ),
                       ),

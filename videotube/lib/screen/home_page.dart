@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   _initChannel() async {
     APIHandler apiHandler = APIHandler.instance;
     Channel channel =
-        await apiHandler.fetchChannel(channelId: "UCykDwCvT2mj6R6w8Y5uPd5Q");
+        await apiHandler.fetchChannel(channelId: "UCsXVk37bltHxD1rDPwtNM8Q");
     setState(() {
       this.channel = channel;
     });

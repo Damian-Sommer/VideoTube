@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+
+import 'package:videotube/page_container.dart';
 import 'package:videotube/screen/home_page.dart';
-import 'package:videotube/screen/loading_page.dart';
-
-import 'model/api_handler.dart';
-import 'model/channel.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'model/page.dart';
-import 'page_container.dart';
+import 'model/sign_in.dart';
 
-void main() {
-  runApp(const MyApp());
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFF02040A),
         primarySwatch: Colors.blue,
       ),
-      home: const MainPage(title: 'Flutter Demo Home Page'),
+      home: const MainPage(title: 'VideoTube'),
     );
   }
 }
@@ -42,13 +43,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late PageContainer containerWidget;
-  static List screens = [
-    HomePage(),
-    HomePage(),
-    HomePage(),
-  ];
+  static List screens = [HomePage(), HomePage(), SignIn()];
   List<PageModel> pageList = <PageModel>[];
-
 
   _MainPageState() {
     //setScreens();
@@ -65,7 +61,7 @@ class _MainPageState extends State<MainPage> {
     pageList.add(PageModel(
         id: 2,
         name: "Settings",
-        icon: const ImageIcon(AssetImage("assets/icons/search.png")),
+        icon: const Icon(Icons.person),
         color: const Color(0xffDFDDDD)));
     containerWidget = PageContainer(pages: pageList, screens: screens);
   }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "154386380165",
+    "project_id": "videotube-368712",
+    "storage_bucket": "videotube-368712.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154386380165:android:1a28b061ac91ff1345c0ec",
+        "android_client_info": {
+          "package_name": "com.example.videotube"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154386380165-nc6r4viv001coojg6q2djid76n86chvt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.videotube",
+            "certificate_hash": "031fc925a92bf0cecb67536d41f7685f7c30024f"
+          }
+        },
+        {
+          "client_id": "154386380165-7ma96ss943thf8eeb7gv1o5h76m1bdqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFtzGuRNlyNd-Ybk51IqbRP4KhOLiCAcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154386380165-7ma96ss943thf8eeb7gv1o5h76m1bdqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

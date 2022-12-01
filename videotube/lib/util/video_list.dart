@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:videotube/model/api_handler.dart';
+import 'package:videotube/screen/loading_page.dart';
 
 import '../model/channel.dart';
 import '../model/video.dart';
@@ -52,7 +53,7 @@ class _HomePageState extends State<VideoList> {
         margin: EdgeInsets.only(top: 10),
         child: InkWell(
           onTap: () {
-            //navigateSecondPage(video.id);
+            navigateSecondPage(video.id);
           },
           borderRadius: BorderRadius.circular(20),
           child: Container(
@@ -148,12 +149,12 @@ class _HomePageState extends State<VideoList> {
     return const Color(0xffDFDDDD);
   }
 
-/*
-  void navigateSecondPage(String videoId) async {
+
+  void navigateSecondPage(String id) async {
     await Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return VideoDetail(id: videoId);
+      return LoadingPage();//VideoDetail(id: videoId);
     }));
-  }*/
+  }
 
   Widget getAuthorPill(String channelTitle) {
     return Align(

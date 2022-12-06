@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:videotube/page_container.dart';
-import 'package:videotube/screen/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:videotube/screen/home_page.dart';
 import 'model/page.dart';
 import 'model/sign_in.dart';
 
@@ -14,7 +14,6 @@ Future main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context){
     return MaterialApp(

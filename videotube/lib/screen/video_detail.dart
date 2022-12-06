@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:videotube/util/config.dart';
+import 'package:videotube/util/video_list.dart';
+import 'package:videotube/util/video_list_util.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
-import 'package:videotube/model/api_handler.dart';
 
 class VideoDetail extends StatefulWidget {
   final String id;
@@ -35,11 +36,16 @@ class _VideoDetailState extends State<VideoDetail> {
 
   Widget getVideoDetails(String title) {
     return SingleChildScrollView(
-      child: YoutubePlayer(
-        controller: _controller,
-        showVideoProgressIndicator: true,
-        liveUIColor: Color(0xffff0000),
-      ),
+      child: Column(
+        children: <Widget>[
+          YoutubePlayer(
+            controller: _controller,
+            showVideoProgressIndicator: true,
+            liveUIColor: const Color(0xffff0000),
+          ),
+          VideoList(),
+        ],
+      )
     );
   }
 }

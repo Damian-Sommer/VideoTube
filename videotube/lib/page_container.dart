@@ -88,12 +88,8 @@ class AppBarContent extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
-            children: const <Widget>[
-              ImageIcon(
-                AssetImage("assets/icons/vitu.png"),
-                color: Color(0xFFFF0000),
-                size: 40,
-              ),
+            children: <Widget>[
+              Image.asset('assets/icons/vitu.png', height: 40,),
               Text(
                 ' ViTu',
                 style: TextStyle(

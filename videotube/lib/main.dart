@@ -21,9 +21,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        /*
-        Greeper: flutter color hex opacity
-         */
         scaffoldBackgroundColor: const Color(0xFF02040A),
         primarySwatch: Colors.blue,
       ),

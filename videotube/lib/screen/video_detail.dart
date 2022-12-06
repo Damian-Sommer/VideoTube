@@ -1,24 +1,30 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
 import 'package:videotube/model/api_handler.dart';
 
 class VideoDetail extends StatefulWidget {
-  final int id;
-  VideoDetail({Key? key, required this.id}) : super(key: key);
+  final String id;
+  const VideoDetail({Key? key, required this.id}) : super(key: key);
 
   @override
-  _VideoDetailState createState() => _VideoDetailState(id: id);
+  _VideoDetailState createState() => _VideoDetailState();
 }
 
 class _VideoDetailState extends State<VideoDetail> {
-  final int id;
-
-  APIHandler apiHandler = APIHandler.instance;
-
-  _VideoDetailState({required this.id});
+  late YoutubePlayerController _controller;
 
   @override
   Widget build(BuildContext context) {
+
+    _controller = YoutubePlayerController(
+      initialVideoId: widget.id,
+      flags: const YoutubePlayerFlags(
+        autoPlay: true,
+        mute: false,
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Video"),
@@ -29,24 +35,10 @@ class _VideoDetailState extends State<VideoDetail> {
 
   Widget getVideoDetails(String title) {
     return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          Text(
-            title,
-            style: const TextStyle(color: Colors.white),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context, true);
-            },
-            child: const Icon(
-                IconData(
-                    0xf571,
-                    fontFamily: 'MaterialIcons',
-                    matchTextDirection: true),
-                color: Colors.white),
-          ),
-        ],
+      child: YoutubePlayer(
+        controller: _controller,
+        showVideoProgressIndicator: true,
+        liveUIColor: Color(0xffff0000),
       ),
     );
   }

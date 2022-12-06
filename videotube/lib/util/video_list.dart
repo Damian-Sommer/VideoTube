@@ -6,6 +6,7 @@ import 'package:videotube/screen/loading_page.dart';
 
 import '../model/channel.dart';
 import '../model/video.dart';
+import '../screen/video_detail.dart';
 
 class VideoList extends StatefulWidget {
   final Channel channel;
@@ -152,7 +153,7 @@ class _HomePageState extends State<VideoList> {
 
   void navigateSecondPage(String id) async {
     await Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return LoadingPage();//VideoDetail(id: videoId);
+      return VideoDetail(id: id);
     }));
   }
 

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:videotube/model/api_handler.dart';
+import 'package:videotube/model/sign_in.dart';
 import 'package:videotube/screen/loading_page.dart';
 
 import '../model/channel.dart';
@@ -286,7 +287,11 @@ class _HomePageState extends State<VideoListUtil> {
             TextButton(
               child: const Text('Login'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => SignIn()
+                    )
+                );
               },
             ),
           ],

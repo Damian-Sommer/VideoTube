@@ -16,6 +16,7 @@ class GoogleSignInProvider{
   }
 
   Future<User?> signInWithGoogle() async {
+
     final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
     final GoogleSignInAuthentication? googleSignInAuthentication =
     await googleSignInAccount?.authentication;
@@ -35,6 +36,10 @@ class GoogleSignInProvider{
     print('signInWithGoogle succeeded: $user');
 
     return currentUser;
+  }
+
+  Future<bool> isLoggedIn() async {
+    return await googleSignIn.isSignedIn() ? true : false;
   }
 
   void signOutGoogle() async {

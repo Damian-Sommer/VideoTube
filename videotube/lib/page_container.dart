@@ -14,9 +14,7 @@ class PageContainer extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _PageContainerState createState() =>
-      // ignore: no_logic_in_create_state
-      _PageContainerState(pages, screens);
+  _PageContainerState createState() => _PageContainerState(pages, screens);
 }
 
 class _PageContainerState extends State<PageContainer> {
